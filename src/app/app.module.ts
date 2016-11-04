@@ -3,10 +3,11 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { AngularFireModule } from 'angularfire2';
-// import *as firebase from 'firebase';
+import *as firebase from 'firebase';
 
 // Local Files
-import { config } from '../environments/firebase.config';
+import { firebaseConfig } from '../environments/firebase.config';
+import { firebaseAuthConfig } from '../environments/firebaseAuth.config';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
 
@@ -19,7 +20,7 @@ import { LoginComponent } from './components/login/login.component';
     BrowserModule,
     FormsModule,
     HttpModule,
-    AngularFireModule.initializeApp(config)
+    AngularFireModule.initializeApp(firebaseConfig, firebaseAuthConfig)
   ],
   providers: [],
   bootstrap: [AppComponent]

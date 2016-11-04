@@ -15,10 +15,19 @@ export class AppComponent implements OnInit {
   constructor(private firebaseService: FirebaseService) { }
 
   ngOnInit() {
-    this.firebaseService.getUsers()
-      .subscribe(users => {
-        this.stuff = users;
-        console.log(this.stuff);
+    this.firebaseService.login()
+      // .then((stuff) => {
+      //   console.log(stuff);
+      //   stuff.auth.getToken().then(token => console.log(token));
+      // })
+      .then(() => {
+        this.firebaseService.subscribe();
+      }).then(() => {
+        this.firebaseService.getUsers()
+          .subscribe(users => {
+            this.stuff = users;
+            console.log(this.stuff);
+          });
       });
   }
 }

@@ -4,12 +4,14 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { AngularFireModule } from 'angularfire2';
 import *as firebase from 'firebase';
+import { RouterModule } from '@angular/router';
 
 // Local Files
 import { firebaseConfig } from '../environments/firebase.config';
 import { firebaseAuthConfig } from '../environments/firebaseAuth.config';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
+import { AppRouter } from './app-routing.module';
 
 @NgModule({
   declarations: [
@@ -20,7 +22,8 @@ import { LoginComponent } from './components/login/login.component';
     BrowserModule,
     FormsModule,
     HttpModule,
-    AngularFireModule.initializeApp(firebaseConfig, firebaseAuthConfig)
+    AngularFireModule.initializeApp(firebaseConfig, firebaseAuthConfig),
+    AppRouter
   ],
   providers: [],
   bootstrap: [AppComponent]

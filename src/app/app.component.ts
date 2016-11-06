@@ -5,7 +5,7 @@ import { FirebaseService } from './services/firebase/firebase.service';
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  providers: [ FirebaseService ]
+  providers: [FirebaseService]
 })
 
 export class AppComponent implements OnInit {
@@ -27,6 +27,9 @@ export class AppComponent implements OnInit {
           .subscribe(users => {
             this.stuff = users;
             console.log(this.stuff);
+
+
+
           });
       });
   }

@@ -26,6 +26,6 @@ import { AppRouter } from './app-routing.module';
     AppRouter
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [ AppComponent ]
 })
 export class AppModule { }

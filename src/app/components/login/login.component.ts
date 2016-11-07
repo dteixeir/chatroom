@@ -1,6 +1,7 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component } from '@angular/core';
 
 import { User } from '../../models/user';
+import { FirebaseService } from '../../services/firebase/firebase.service';
 
 @Component({
   selector: 'app-login',
@@ -11,9 +12,14 @@ import { User } from '../../models/user';
 export class LoginComponent {
 
   user = new User();
+  auth: any = {};
 
-  print() {
-    console.log(this.user);
+  constructor(private firebaseService: FirebaseService) { }
+
+  login() {
+    this.firebaseService.login(this.user).then((auth) => {
+      // dont need this here but wanted to test with it
+      this.auth = auth;
+    });
   }
-
 }

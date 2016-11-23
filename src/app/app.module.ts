@@ -12,11 +12,13 @@ import { firebaseAuthConfig } from '../environments/firebaseAuth.config';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
 import { AppRouter } from './app-routing.module';
+import { ListComponent } from './components/list/list.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent
+    LoginComponent,
+    ListComponent
   ],
   imports: [
     BrowserModule,

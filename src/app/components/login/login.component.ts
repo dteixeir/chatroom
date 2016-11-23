@@ -2,6 +2,9 @@ import { Component } from '@angular/core';
 
 import { User } from '../../models/user';
 import { FirebaseService } from '../../services/firebase/firebase.service';
+import { AngularFire, FirebaseListObservable, FirebaseAuth, FirebaseAuthState } from 'angularfire2';
+import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -12,14 +15,26 @@ import { FirebaseService } from '../../services/firebase/firebase.service';
 export class LoginComponent {
 
   user = new User();
-  auth: any = {};
+  auth: firebase.User;
+  users: any;
 
-  constructor(private firebaseService: FirebaseService) { }
+  constructor(
+    private firebaseService: FirebaseService,
+    private router: Router
+  ) { }
 
   login() {
-    this.firebaseService.login(this.user).then((auth) => {
-      // dont need this here but wanted to test with it
-      this.auth = auth;
-    });
+    this.firebaseService.login(this.user)
+      .subscribe((auth) => {
+        this.auth = auth;
+      });
+  }
+
+  getUsers() {
+    this.firebaseService.getUsers()
+      .subscribe(users => {
+        this.users = users;
+        console.log(this.users);
+      });
   }
 }

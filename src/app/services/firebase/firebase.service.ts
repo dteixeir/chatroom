@@ -1,13 +1,15 @@
 import { Injectable } from '@angular/core';
 import { AngularFire, FirebaseListObservable, FirebaseAuth, FirebaseAuthState } from 'angularfire2';
+import { Http, Headers, RequestOptions, Response } from '@angular/http';
 import { User } from '../../models/user';
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class FirebaseService {
   // users: any[];
   // user: any = {};
   user = new User();
-  userAuth: any = {};
+  auth: Observable<any>;
 
   constructor(private ngFire: AngularFire) { }
 
@@ -16,10 +18,17 @@ export class FirebaseService {
     return users$;
   }
 
+  getAuth() {
+    return this.user;
+  }
+
+  setAuth(auth) {
+    this.user.auth = auth;
+  }
+
   login(user) {
-    return this.ngFire.auth.login({
-      email: user.email,
-      password: user.password
-    });
+    const auth$: Observable<firebase.User> = Observable.fromPromise(this.ngFire.auth.login(user) as Promise<FirebaseAuthState>)
+      .map((res: FirebaseAuthState) => res.auth as firebase.User );
+    return auth$;
   }
 }

@@ -1,10 +1,18 @@
+// angular components
 import { Component } from '@angular/core';
-
-import { User } from '../../models/user';
-import { FirebaseService } from '../../services/firebase/firebase.service';
-import { AngularFire, FirebaseListObservable, FirebaseAuth, FirebaseAuthState } from 'angularfire2';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
+
+// models
+import { User } from '../../models/user';
+
+// services
+import { FirebaseService } from '../../services/firebase/firebase.service';
+// import { UserService } from '../../services/user/user.service';
+
+// 3rd party components
+import { AngularFire, FirebaseListObservable, FirebaseAuth, FirebaseAuthState } from 'angularfire2';
+
 
 @Component({
   selector: 'app-login',
@@ -15,23 +23,34 @@ import { Observable } from 'rxjs';
 export class LoginComponent {
 
   user = new User();
-  auth: firebase.User;
   users: any;
+  userObserv: Observable<any>;
 
   constructor(
     private firebaseService: FirebaseService,
+    // private userService: UserService,
     private router: Router
   ) { }
 
   login() {
     this.firebaseService.login(this.user)
       .subscribe((auth) => {
-        this.auth = auth;
+        // console.log(auth);
+
+        if (auth.uid) {
+          this.router.navigate(['list']);
+        } else {
+          this.router.navigate(['login']);
+        }
       });
   }
 
-  getUsers() {
-    this.firebaseService.getUsers()
+  createAccount() {
+
+  }
+
+  getUsers(uid) {
+    this.firebaseService.getUsers(uid)
       .subscribe(users => {
         this.users = users;
         console.log(this.users);

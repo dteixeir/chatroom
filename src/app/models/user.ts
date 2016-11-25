@@ -1,19 +1,16 @@
+// import { AngularFire, FirebaseListObservable } from 'angularfire2';
+import { Observable } from 'rxjs';
+
 export class User {
-  uid: string;
-  username: string;
   password: string;
   firstName: string;
   lastName: string;
-  email: string;
-  auth: Object;
+  firebaseUser: firebase.User;
 
   constructor() {
-    this.uid = '';
-    this.username = '';
     this.password = '';
     this.firstName = '';
     this.lastName = '';
-    this.email = '';
-    this.auth = {};
+    this.firebaseUser = null;
   }
 }

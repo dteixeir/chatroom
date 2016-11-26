@@ -13,6 +13,12 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
 import { AppRouter } from './app-routing.module';
 import { ListComponent } from './components/list/list.component';
+// import { LocalStorageService, LOCAL_STORAGE_SERVICE_CONFIG } from 'angular-2-local-storage';
+
+// let localStorageServiceConfig = {
+//     prefix: 'my-app',
+//     storageType: 'sessionStorage'
+// };
 
 @NgModule({
   declarations: [
@@ -27,7 +33,10 @@ import { ListComponent } from './components/list/list.component';
     AngularFireModule.initializeApp(firebaseConfig, firebaseAuthConfig),
     AppRouter
   ],
-  providers: [],
+  providers: [
+    // LocalStorageService,
+    // { provide: LOCAL_STORAGE_SERVICE_CONFIG, useValue: localStorageServiceConfig }
+  ],
   bootstrap: [ AppComponent ]
 })
 export class AppModule { }

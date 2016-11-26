@@ -12,7 +12,6 @@ export class ListComponent implements OnInit {
   private user: User;
   private users: any;
 
-
   constructor(
     private firebaseService: FirebaseService
   ) { }
@@ -25,7 +24,7 @@ export class ListComponent implements OnInit {
     this.firebaseService.getUser()
       .subscribe((user) => {
         this.user = user;
-        console.log(this.user);
+        // console.log(this.user);
       }).add(() => {
         this.getUserData();
       });
@@ -35,11 +34,11 @@ export class ListComponent implements OnInit {
     this.firebaseService.getUsers(this.user.firebaseUser.uid)
       .subscribe(snapshots => {
         snapshots.forEach(element => {
-          console.log(element);
+          // console.log(element);
         });
       });
   }
 
-  
+
 
 }

@@ -2,6 +2,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
+// import { LocalStorageService } from 'angular-2-local-storage';
 
 // models
 import { User } from '../../models/user';
@@ -28,7 +29,7 @@ export class LoginComponent {
 
   constructor(
     private firebaseService: FirebaseService,
-    // private userService: UserService,
+    // private localStorageService: LocalStorageService,
     private router: Router
   ) { }
 

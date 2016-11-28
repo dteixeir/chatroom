@@ -1,9 +1,7 @@
 // angular components
-import { Component } from '@angular/core';
+import { Component, OnInit, NgModule } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-// import { LocalStorageService } from 'angular-2-local-storage';
-
 // models
 import { User } from '../../models/user';
 
@@ -21,23 +19,27 @@ import { AngularFire, FirebaseListObservable, FirebaseAuth, FirebaseAuthState } 
   styleUrls: ['./login.component.scss']
 })
 
-export class LoginComponent {
+export class LoginComponent implements OnInit {
 
-  user = new User();
+  user: User;
   users: any;
   userObserv: Observable<any>;
+  rememberMe?: boolean;
 
   constructor(
     private firebaseService: FirebaseService,
-    // private localStorageService: LocalStorageService,
     private router: Router
   ) { }
 
+  ngOnInit() {
+    this.populuateUser();
+  }
+
   login() {
+    this.saveUser();
+
     this.firebaseService.login(this.user)
       .subscribe((auth) => {
-        // console.log(auth);
-
         if (auth.uid) {
           this.router.navigate(['list']);
         } else {
@@ -46,15 +48,39 @@ export class LoginComponent {
       });
   }
 
-  createAccount() {
+  populuateUser() {
+    this.rememberMe = JSON.parse(localStorage.getItem('rememberMe'));
+    console.log(this.rememberMe);
 
+    switch (this.rememberMe) {
+      case null:
+        this.rememberMe = true;
+        this.user = new User();
+        break;
+
+      case false:
+        this.user = new User();
+        break;
+
+      default:
+        this.user = JSON.parse(localStorage.getItem('user'));
+    }
   }
 
-  getUsers(uid) {
-    this.firebaseService.getUsers(uid)
-      .subscribe(users => {
-        this.users = users;
-        console.log(this.users);
-      });
+  saveUser() {
+    if (this.rememberMe) {
+      localStorage.setItem('user', JSON.stringify(this.user));
+      localStorage.setItem('rememberMe', 'true');
+    } else {
+      localStorage.removeItem('user');
+      localStorage.setItem('rememberMe', 'false');
+    }
   }
+
+  // getUsers(uid) {
+  //   this.firebaseService.getUsers(uid)
+  //     .subscribe(users => {
+  //       this.users = users;
+  //     });
+  // }
 }
